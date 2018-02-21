@@ -1,0 +1,32 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:400,300,700);
+@import 'bootstrap/bootstrap';
+@import 'font-awesome/font-awesome';
+@import 'xiansi/vue-style';
+
+
+body {
+  background-color: #f4f6f9
+  //padding-top: 85px;
+   //overflow: -webkit-paged-y;
+}
+//公用
+h1{
+  text-align: center;
+}
+.center{
+  width: auto;
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+.text-center{
+  text-align: center;
+}
+.center-vertical{
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+.main-box{
+  padding-top: 32px;
+}
