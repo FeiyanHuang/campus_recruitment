@@ -1,30 +1,6 @@
 <template>
   <div id="app">
     <div v-if="currentUser" class="nav">
-      <div class="nav-item">
-        <router-link to="/tasks" class="task-link" >任务管理</router-link>
-      </div>
-      <div class="nav-item" v-if="admin">
-        <router-link to="/users" class="user-link" >账号管理</router-link>
-      </div>
-      <div class="logout-box">
-        <div class="logout-small-box">
-          <!-- <span>{{currentUser.email}}</span> -->
-          <div class="problem">
-            <popper trigger="hover" :options="{placement: 'bottom'}">
-              <div class="popper popper-box">
-                剩余{{ currentUser.meta.remain_pages }}页
-              </div>
-              <div class="" slot="reference">
-                <span>{{currentUser.email}}</span>
-              </div>
-            </popper>
-          </div>
-          <div class="logout-btn" @click="logout" >
-            <span >注销</span>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="container">
       <transition name="fade" mode="out-in">
@@ -41,10 +17,11 @@ import 'vue-popperjs/dist/css/vue-popper.css'
 
 export default {
   name: 'app',
-  computed: mapGetters([
-    'currentUser',
-    'admin'
-  ]),
+  computed: {
+    ...mapGetters([
+      'currentUser'
+    ])
+  },
   components: {
     Popper
   },
