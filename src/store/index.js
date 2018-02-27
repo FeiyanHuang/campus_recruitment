@@ -29,6 +29,7 @@ const actions = {
         })
       } else {
         commit(types.LOGIN, res)
+        window.location.href = '/admin/job/list'
       }
     })
   },
@@ -42,6 +43,7 @@ const actions = {
         })
       } else {
         commit(types.LOGIN, res)
+        window.location.href = '/student/job/list'
       }
     })
   },
@@ -55,6 +57,7 @@ const actions = {
         })
       } else {
         commit(types.LOGIN, res)
+        window.location.href = '/student/job/list'
       }
     })
   },
@@ -70,7 +73,7 @@ const mutations = {
   },
   [types.LOGOUT] (state) {
     state.currentUser = null
-    window.location.href = '/login'
+    window.location.href = '/index'
   }
 }
 

@@ -1,8 +1,9 @@
+import Vue from 'vue'
 import { mapGetters, mapActions } from 'vuex'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
-import { fetchJobsApi } from '../../api/user'
+import { fetchJobsApi, searchJobsApi } from '../../api/user'
 
 export default {
   name: 'Login',
@@ -11,7 +12,8 @@ export default {
       title: '管理员',
       admin: null,
       password: null,
-      jobs: null
+      jobs: null,
+      search: null
     }
   },
   components: {
@@ -36,8 +38,20 @@ export default {
     logout () {
       this.logoutUser()
     },
-    company_list () {
-      window.location.href = '/admin/company/list'
+    find (search) {
+      searchJobsApi(search,(res, err) => {
+        if (err) {
+          // alert('获取用户列表失败')
+          Vue.swal({
+            type: 'error',
+            text: '没有匹配项'
+          })
+          this.loading = false
+        } else {
+          this.jobs = res
+          this.loading = false
+        }
+      })
     }
   },
   created () {

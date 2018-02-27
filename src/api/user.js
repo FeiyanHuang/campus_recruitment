@@ -16,6 +16,41 @@ export function loginAdminApi (admin, password, cb) {
   })
 }
 
+//  企业列表
+export function fetchCompanysApi (cb) {
+  const baseUrl = config.rootUrl + `admin/company_list.php`
+  return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+    cb(res.body)
+  }, (err) => {
+    console.log('getUsersApi err ' + JSON.stringify(err))
+    cb(null, err)
+  })
+}
+
+// 禁用公司
+export function toggleCompanyApi (id, disable, cb) {
+  const baseUrl = config.rootUrl + `admin/company_disable.php?id=${id}&disable=${disable}`
+  return Vue.http.post(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+    cb(res.body)
+    console.log('loginAdminApi suc ' + JSON.stringify(res))
+  }, (err) => {
+    console.log('loginAdminApi err ' + JSON.stringify(err))
+    cb(null, err)
+  })
+}
+
+//  职位列表
+export function fetchJobsApi (cb) {
+  const baseUrl = config.rootUrl + `admin/job_list.php`
+  return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+    cb(res.body)
+  }, (err) => {
+    console.log('getUsersApi err ' + JSON.stringify(err))
+    cb(null, err)
+  })
+}
+
+
 // 学生登录
 export function loginStudentApi (student_id, password, cb) {
   const baseUrl = config.rootUrl + `student/student_login.php?student_id=${student_id}&password=${password}`
@@ -24,6 +59,17 @@ export function loginStudentApi (student_id, password, cb) {
     console.log('loginStudentApi suc ' + JSON.stringify(res))
   }, (err) => {
     console.log('loginStudentApi err ' + JSON.stringify(err))
+    cb(null, err)
+  })
+}
+
+// 职位搜查
+export function searchJobsApi (search,cb) {
+  const baseUrl = config.rootUrl + `student/job_search.php?search=${search}`
+  return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+    cb(res.body)
+  }, (err) => {
+    console.log('getUsersApi err ' + JSON.stringify(err))
     cb(null, err)
   })
 }
@@ -49,29 +95,6 @@ export function registerCompanyApi (company, cb) {
     console.log('loginStudentApi suc ' + company)
   }, (err) => {
     console.log('loginStudentApi err ' + JSON.stringify(err))
-    cb(null, err)
-  })
-}
-
-
-//  企业列表
-export function fetchCompanysApi (cb) {
-  const baseUrl = config.rootUrl + `admin/company_list.php`
-  return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
-    cb(res.body)
-  }, (err) => {
-    console.log('getUsersApi err ' + JSON.stringify(err))
-    cb(null, err)
-  })
-}
-
-//  企业列表
-export function fetchJobsApi (cb) {
-  const baseUrl = config.rootUrl + `admin/job_list.php`
-  return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
-    cb(res.body)
-  }, (err) => {
-    console.log('getUsersApi err ' + JSON.stringify(err))
     cb(null, err)
   })
 }

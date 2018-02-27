@@ -11,14 +11,14 @@ export default {
     return {
       company: {
         id: "",
-        company_name: "公司A",
-        password: "123",
-        boss: "黄飞燕",
-        tel: "17858952904",
-        email: "515978951@qq.com",
-        address: "浙江湖州",
-        type: "科技有限公司",
-        content: "公司简介"
+        company_name: "",
+        password: "",
+        boss: "",
+        tel: "",
+        email: "",
+        address: "",
+        type: "",
+        content: ""
       }
     }
   },
