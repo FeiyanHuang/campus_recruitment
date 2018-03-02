@@ -3,22 +3,19 @@ import { mapGetters } from 'vuex'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
-import { registerCompanyApi, fetchCompanyApi, updateCompanyApi } from '../../api/user'
+import { addCompanyJobApi, fetchCompanyJobApi, updateCompanyJobApi } from '../../api/user'
 
 export default {
   name: 'Login',
   data () {
     return {
-      company: {
+      job: {
         id: "",
-        company_name: "",
-        password: "",
-        boss: "",
-        tel: "",
-        email: "",
-        address: "",
-        type: "",
-        content: ""
+        job_name: "",
+        price: "",
+        content: "",
+        persons: "",
+        c_name: ""
       },
       createMode: true
     }
@@ -32,36 +29,37 @@ export default {
     ])
   },
   methods: {
-    create () {
-      registerCompanyApi(this.company, (res, err) => {
+    add () {
+      addCompanyJobApi(this.job, (res, err) => {
         if (err) {
           Vue.swal({
             type: 'error',
-            text: '创建用户失败'
+            text: '创建职位失败'
           })
         } else {
           Vue.swal({
             type: 'success',
-            text: '创建用户成功'
+            text: '创建职位成功'
           })
-          this.$router.push('/company/job/list')
         }
+        window.location.href = '/company/job/list'
       })
     },
     update () {
-      updateCompanyApi(this.company, (res, err) => {
+      updateCompanyJobApi(this.job, (res, err) => {
         if (err) {
           Vue.swal({
             type: 'error',
-            text: '创建用户失败'
+            text: '更新职位失败'
           })
         } else {
           Vue.swal({
             type: 'success',
-            text: '创建用户成功'
+            text: '创建职位成功'
           })
-          this.$router.push('/company/job/list')
         }
+        this.$router.push('/company/job/list')
+        // window.location.href = '/company/job/list'
       })
     }
   },
@@ -71,7 +69,7 @@ export default {
     //  id = 0, means new user
     if (parseInt(id) !== 0) {
       this.createMode = false
-      fetchCompanyApi(id, (res, err) => {
+      fetchCompanyJobApi(id, (res, err) => {
         // this.user = res
         if (err) {
           // alert('无法获取用户')
@@ -80,10 +78,10 @@ export default {
             text: '无法获取用户'
           })
         } else {
-          this.company = res
+          this.job = res
         }
       })
     }
-    // this.job.c_name=this.currentUser.company_name
+    this.job.c_name=this.currentUser.company_name
   }
 }

@@ -3,8 +3,9 @@ import { mapGetters, mapActions } from 'vuex'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
-import { fetchCompanysApi, toggleCompanyApi } from '../../api/user'
+import { fetchCompanyJobsApi, delCompanyJobApi } from '../../api/user'
 import {Pagination} from 'vue-pagination-2'
+
 
 export default {
   name: 'Login',
@@ -13,7 +14,8 @@ export default {
       title: '管理员',
       admin: null,
       password: null,
-      companys: null,
+      jobs: null,
+      search: null,
       page: 1,
       total_records: 10
     }
@@ -41,24 +43,32 @@ export default {
     logout () {
       this.logoutUser()
     },
-    job_list () {
-      window.location.href = '/admin/job/list'
+    updateCompany (id) {
+      this.$router.push('/company/register/' + id)
     },
-    toggle (id,disable) {
-      toggleCompanyApi(id,disable, (res, err) => {
+    update (id) {
+      this.$router.push('/company/addjob/' + id)
+    },
+    del (id) {
+      delCompanyJobApi(id,(res, err) => {
         if (err) {
+          // alert('获取用户列表失败')
           Vue.swal({
             type: 'error',
-            text: '禁用企业失败'
+            text: '删除职位失败'
           })
         } else {
-          window.location.href = '/admin/company/list'
+          Vue.swal({
+            type: 'success',
+            text: '删除职位成功'
+          })
+          this.$router.push('/company/job/list')
         }
       })
     },
     setPage: function (page) {
       this.page = page
-      fetchCompanysApi(this.page,(res, err) => {
+      fetchCompanyJobsApi(this.currentUser.company_name,this.page,(res, err) => {
         if (err) {
           Vue.swal({
             type: 'error',
@@ -66,7 +76,7 @@ export default {
           })
           this.loading = false
         } else {
-          this.companys = res.companys
+          this.companys = res.jobs
           this.loading = false
         }
       })
@@ -74,15 +84,16 @@ export default {
     }
   },
   created () {
-    fetchCompanysApi(this.page,(res, err) => {
+    fetchCompanyJobsApi(this.currentUser.company_name,this.page,(res, err) => {
       if (err) {
+        // alert('获取用户列表失败')
         Vue.swal({
           type: 'error',
           text: '获取用户列表失败'
         })
         this.loading = false
       } else {
-        this.companys = res.companys
+        this.jobs = res.jobs
         this.total_records = parseInt(res.count)
       }
     })

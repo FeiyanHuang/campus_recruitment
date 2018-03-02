@@ -57,7 +57,7 @@ const actions = {
         })
       } else {
         commit(types.LOGIN, res)
-        window.location.href = '/student/job/list'
+        window.location.href = '/company/job/list'
       }
     })
   },

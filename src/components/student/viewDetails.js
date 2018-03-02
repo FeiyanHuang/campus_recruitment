@@ -3,23 +3,34 @@ import { mapGetters, mapActions } from 'vuex'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
-import { fetchJobsApi } from '../../api/user'
-import {Pagination} from 'vue-pagination-2'
+import { fetchViewApi } from '../../api/user'
 
 export default {
   name: 'Login',
   data () {
     return {
       title: '管理员',
-      admin: null,
-      password: null,
-      jobs: null,
-      page: 1,
-      total_records: 10
+      job: {
+        'j_id': "1",
+        'job_name': "前端开发",
+        'price': "1000-2000",
+        'c_content': "公司简介2",
+        'j_content': "公司简介2",
+        'persons': "1",
+        'status': "1",
+        'c_id': "2",
+        'company_name': "公司B",
+        'password': "123",
+        'boss': "黄飞燕2",
+        'tel': "17858952904",
+        'email': "515978951@qq.com",
+        'address': "浙江湖州",
+        'type': "科技有限公司",
+        'disable': "0"
+      }
     }
   },
   components: {
-    Pagination,
     Popper
   },
   computed: {
@@ -40,32 +51,11 @@ export default {
     ]),
     logout () {
       this.logoutUser()
-    },
-    company_list () {
-      this.$router.push('/admin/company/list')
-    },
-    check (id) {
-      this.$router.push('/admin/job/check/'+id)
-    },
-    setPage: function (page) {
-      this.page = page
-      fetchJobsApi(this.page,(res, err) => {
-        if (err) {
-          Vue.swal({
-            type: 'error',
-            text: '获取用户列表失败'
-          })
-          this.loading = false
-        } else {
-          this.companys = res.jobs
-          this.loading = false
-        }
-      })
-      // this.fetchTasks()
     }
   },
   created () {
-    fetchJobsApi(this.page,(res, err) => {
+    const id = this.$route.params.id
+    fetchViewApi(id,(res, err) => {
       if (err) {
         // alert('获取用户列表失败')
         Vue.swal({
@@ -74,8 +64,8 @@ export default {
         })
         this.loading = false
       } else {
-        this.jobs = res.jobs
-        this.total_records = parseInt(res.count)
+        this.job = res
+        this.loading = false
       }
     })
   }

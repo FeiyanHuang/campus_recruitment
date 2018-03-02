@@ -49,6 +49,10 @@
         </tbody>
       </table>
     </div>
+    <!-- 分页 -->
+    <div class="center">
+      <pagination :records='total_records' :per-page="10" @paginate="setPage"></pagination>
+    </div>
   </div>
 </template>
 <script src = './CompanyList.js' scoped> </script>

@@ -24,7 +24,7 @@
       <div class="panel panel-default panel-box" v-for="job in jobs">
         <div class="panel-heading">
           <span>{{job.job_name}}</span>
-          <span class="right">{{job.c_name}}</span>
+          <span class="right" @click="view(job.id)">{{job.c_name}}</span>
         </div>
         <div class="panel-body">
           <p>{{job.content}}</p>
@@ -34,6 +34,10 @@
           <span class="right">{{job.persons}}</span>
         </div>
       </div>
+    </div>
+    <!-- 分页 -->
+    <div class="center">
+      <pagination :records='total_records' :per-page="10" @paginate="setPage"></pagination>
     </div>
   </div>
 </template>

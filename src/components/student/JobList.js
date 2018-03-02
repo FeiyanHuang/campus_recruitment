@@ -3,7 +3,8 @@ import { mapGetters, mapActions } from 'vuex'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
-import { fetchJobsApi, searchJobsApi } from '../../api/user'
+import { fetchStudentJobsApi, searchJobsApi } from '../../api/user'
+import {Pagination} from 'vue-pagination-2'
 
 export default {
   name: 'Login',
@@ -13,10 +14,13 @@ export default {
       admin: null,
       password: null,
       jobs: null,
-      search: null
+      search: null,
+      page: 1,
+      total_records: 10
     }
   },
   components: {
+    Pagination,
     Popper
   },
   computed: {
@@ -52,10 +56,29 @@ export default {
           this.loading = false
         }
       })
+    },
+    view (id) {
+      this.$router.push('/student/view/' + id)
+    },
+    setPage: function (page) {
+      this.page = page
+      fetchStudentJobsApi(this.page,(res, err) => {
+        if (err) {
+          Vue.swal({
+            type: 'error',
+            text: '获取用户列表失败'
+          })
+          this.loading = false
+        } else {
+          this.companys = res.jobs
+          this.loading = false
+        }
+      })
+      // this.fetchTasks()
     }
   },
   created () {
-    fetchJobsApi((res, err) => {
+    fetchStudentJobsApi(this.page,(res, err) => {
       if (err) {
         // alert('获取用户列表失败')
         Vue.swal({
@@ -64,8 +87,8 @@ export default {
         })
         this.loading = false
       } else {
-        this.jobs = res
-        this.loading = false
+        this.jobs = res.jobs
+        this.total_records = parseInt(res.count)
       }
     })
   }

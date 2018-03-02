@@ -5,17 +5,14 @@
         <div class="navbar-header">
           <a class="navbar-brand" href="#">校园招聘</a>
         </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="#">职位管理</a></li>
-          <li @click="company_list()"><a href="#">企业管理</a></li>
-        </ul>
         <ul class="nav navbar-nav navbar-right">
-          <!-- <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li> -->
+          <li @click='updateCompany(currentUser.id)'><a>修改信息</a></li>
           <li  @click='logout'><a href="#"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         </ul>
       </div>
     </nav>
     <div class="container main-box">
+      <router-link :to="{ path: '/company/addjob/0' }">新建职位</router-link>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -26,7 +23,8 @@
             <th>人数</th>
             <th>简介</th>
             <th>状态</th>
-            <th>审核</th>
+            <th>编辑</th>
+            <th>删除</th>
           </tr>
         </thead>
         <tbody>
@@ -43,7 +41,10 @@
               <span v-else>等待审核</span>
             </td>
             <td>
-              <button type="button" name="button" @click="check(job.id)">审核</button>
+              <button type="button" name="button" @click='update(job.id)'>编辑</button>
+            </td>
+            <td>
+              <button type="button" name="button" @click='del(job.id)'>删除</button>
             </td>
           </tr>
         </tbody>
@@ -58,6 +59,8 @@
 <script src = './JobList.js' scoped> </script>
 <style lang="sass" scoped>
   @import "../../assets/scss/app"
+  .main-box
+    margin-top: 80px
   table>thead>tr>th
     text-align: center
     font-family: '黑体'
@@ -66,6 +69,4 @@
     vertical-align: middle!important
     text-align: center
     font-family: '黑体'
-  .main-box
-    margin-top: 80px
 </style>

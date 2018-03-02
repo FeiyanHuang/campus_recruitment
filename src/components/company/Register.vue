@@ -3,11 +3,12 @@
     <div class="col-md-12 panel panel-default">
       <div class="panel-body" >
         <div class="from-box">
-          <form action="" @submit.prevent='create()'>
+          <form action="" @submit.prevent='createMode?create():update()'>
             <div class="col-md-6 item-box">
               <label class="font">公司名(登录名)</label>
               <br>
-              <input class="form-control input-box" name="text" type="text" placeholder="必填：用于登录" v-model="company.company_name">
+              <input v-if="createMode" class="form-control input-box" name="text" type="text" placeholder="必填：用于登录" v-model="company.company_name">
+              <input v-if="!createMode" class="form-control input-box" name="text" type="text" placeholder="必填：用于登录" v-model="company.company_name" disabled>
             </div>
             <div class="col-md-6 item-box">
               <label class="font">密码</label>
