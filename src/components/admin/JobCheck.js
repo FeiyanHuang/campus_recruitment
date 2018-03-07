@@ -6,7 +6,7 @@ import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
 import { fetchCompanyJobApi, passJobApi, failJobApi } from '../../api/user'
 
 export default {
-  name: 'Login',
+  name: 'JonCheck',
   data () {
     return {
       job: {

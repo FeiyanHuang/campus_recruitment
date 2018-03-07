@@ -7,7 +7,7 @@ import { fetchCompanysApi, toggleCompanyApi } from '../../api/user'
 import {Pagination} from 'vue-pagination-2'
 
 export default {
-  name: 'Login',
+  name: 'CompanyList',
   data () {
     return {
       title: '管理员',

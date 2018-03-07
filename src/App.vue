@@ -1,7 +1,24 @@
 <template>
   <div id="app">
-    <!-- <div v-if="currentUser" class="nav">
-    </div> -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" v-if="currentUser">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">校园招聘</a>
+        </div>
+        <ul class="nav navbar-nav" v-if="admin">
+          <li>
+            <router-link :to="{ path: '/admin/company/list' }">企业管理</router-link>
+          </li>
+          <li>
+            <router-link :to="{ path: '/admin/job/list' }">职位管理</router-link>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li @click='updateCompany(currentUser.id)' v-if="company"><a>修改'{{this.currentUser.company_name}}'信息</a></li>
+          <li  @click='logout'><a href="#"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
+        </ul>
+      </div>
+    </nav>
     <div class="container">
       <transition name="fade" mode="out-in">
         <router-view class="view"></router-view>
@@ -19,7 +36,10 @@ export default {
   name: 'app',
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'admin',
+      'studnt',
+      'company'
     ])
   },
   components: {
@@ -28,6 +48,9 @@ export default {
   methods: {
     logout () {
       this.$store.commit('LOGOUT')
+    },
+    updateCompany (id) {
+      this.$router.push('/company/register/' + id)
     }
   }
 }
@@ -35,47 +58,6 @@ export default {
 
 <style lang="sass">
   @import "./assets/scss/app"
-  // body
-  //   padding-top: 0px
-  // .nav
-  //   height: 80px
-  //   margin-left: 30px
-  //   margin-right: 30px
-  // .nav-item
-  //   display: inline-block
-  //   line-height: 80px
-  // .logout-box
-  //   display: inline-block
-  //   float: right
-  // .logout-small-box
-  //   line-height: 80px
-  // .logout-box>.logout-small-box>span
-  //   color: #333
-  //   font-size: 12px
-  // .router-link-active
-  //   color: #3385ff !important
-  // .task-link
-  //   margin-right: 15px
-  //   text-decoration: none!important
-  //   color: #666
-  //   font-family: '黑体'
-  //   font-size: 20px
-  // .user-link
-  //   text-decoration: none!important
-  //   color: #666
-  //   font-family: '黑体'
-  //   font-size: 20px
-  // .logout-btn
-  //   display: inline-block
-  //   cursor: pointer
-  //   // width: 30px
-  // .problem
-  //   display: inline-block
-  //   margin-right: 10px
-  //   margin-left: 10px
-  // .problem-icon
-  //   cursor: pointer
-  // .popper-box
-  //   margin-top: -20px!important
-  //   line-height: 30px
+  // .container
+  //   margin-top: 80px
 </style>

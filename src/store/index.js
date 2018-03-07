@@ -11,11 +11,17 @@ Vue.use(Vuex)
 
 /* eslint-disable */
 const state = {
-  currentUser: null
+  currentUser: null,
+  admin: null,
+  company: null,
+  student: null
 }
 
 const getters = {
-  currentUser: state => state.currentUser
+  currentUser: state => state.currentUser,
+  admin: state => state.admin,
+  company: state => state.company,
+  student: state => state.student
 }
 
 const actions = {
@@ -28,7 +34,7 @@ const actions = {
           text: '登录失败'
         })
       } else {
-        commit(types.LOGIN, res)
+        commit(types.ADMIN_LOGIN, res)
         window.location.href = '/admin/job/list'
       }
     })
@@ -42,7 +48,7 @@ const actions = {
           text: '登录失败'
         })
       } else {
-        commit(types.LOGIN, res)
+        commit(types.STUDENT_LOGIN, res)
         window.location.href = '/student/job/list'
       }
     })
@@ -56,7 +62,7 @@ const actions = {
           text: '登录失败'
         })
       } else {
-        commit(types.LOGIN, res)
+        commit(types.COMPANY_LOGIN, res)
         window.location.href = '/company/job/list'
       }
     })
@@ -67,12 +73,23 @@ const actions = {
 }
 
 const mutations = {
-  [types.LOGIN] (state, user) {
+  [types.ADMIN_LOGIN] (state, user) {
     state.currentUser = user
-    // window.location.href = '/'
+    state.admin = true
+  },
+  [types.COMPANY_LOGIN] (state, user) {
+    state.currentUser = user
+    state.company = true
+  },
+  [types.STUDENT_LOGIN] (state, user) {
+    state.currentUser = user
+    state.student = true
   },
   [types.LOGOUT] (state) {
     state.currentUser = null
+    state.admin = null
+    state.company = null
+    state.student = null
     window.location.href = '/index'
   }
 }

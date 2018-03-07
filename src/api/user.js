@@ -87,9 +87,9 @@ export function loginStudentApi (student_id, password, cb) {
   })
 }
 
-//  职位列表
-export function fetchStudentJobsApi (page,cb) {
-  const baseUrl = config.rootUrl + `student/job_list.php?page=${page}`
+//  职位列表带职位搜查功能
+export function fetchStudentJobsApi (search, page, cb) {
+  const baseUrl = config.rootUrl + `student/job_list.php?search=${search}&page=${page}`
   return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
     cb(res.body)
   }, (err) => {
@@ -97,6 +97,17 @@ export function fetchStudentJobsApi (page,cb) {
     cb(null, err)
   })
 }
+
+// //  职位列表分页查询
+// export function searchStudentJobsApi (search,page,cb) {
+//   const baseUrl = config.rootUrl + `student/job_list.php?search=${search}&page=${page}`
+//   return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+//     cb(res.body)
+//   }, (err) => {
+//     console.log('getUsersApi err ' + JSON.stringify(err))
+//     cb(null, err)
+//   })
+// }
 
 //查看详情
 export function fetchViewApi (id, cb) {
@@ -110,16 +121,16 @@ export function fetchViewApi (id, cb) {
   })
 }
 
-// 职位搜查
-export function searchJobsApi (search,cb) {
-  const baseUrl = config.rootUrl + `student/job_search.php?search=${search}`
-  return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
-    cb(res.body)
-  }, (err) => {
-    console.log('getUsersApi err ' + JSON.stringify(err))
-    cb(null, err)
-  })
-}
+// // 职位搜查
+// export function searchJobsApi (search,cb) {
+//   const baseUrl = config.rootUrl + `student/job_search.php?search=${search}`
+//   return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+//     cb(res.body)
+//   }, (err) => {
+//     console.log('getUsersApi err ' + JSON.stringify(err))
+//     cb(null, err)
+//   })
+// }
 
 // 企业登录
 export function loginCompanyApi (company_name, password, cb) {

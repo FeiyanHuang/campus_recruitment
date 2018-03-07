@@ -6,7 +6,7 @@ import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
 import { addCompanyJobApi, fetchCompanyJobApi, updateCompanyJobApi } from '../../api/user'
 
 export default {
-  name: 'Login',
+  name: 'AddJob',
   data () {
     return {
       job: {

@@ -8,7 +8,7 @@ import {Pagination} from 'vue-pagination-2'
 
 
 export default {
-  name: 'Login',
+  name: 'JobList',
   data () {
     return {
       title: '管理员',
@@ -43,9 +43,9 @@ export default {
     logout () {
       this.logoutUser()
     },
-    updateCompany (id) {
-      this.$router.push('/company/register/' + id)
-    },
+    // updateCompany (id) {
+    //   this.$router.push('/company/register/' + id)
+    // },
     update (id) {
       this.$router.push('/company/addjob/' + id)
     },

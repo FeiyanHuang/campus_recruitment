@@ -7,7 +7,7 @@ import { fetchJobsApi } from '../../api/user'
 import {Pagination} from 'vue-pagination-2'
 
 export default {
-  name: 'Login',
+  name: 'JobList',
   data () {
     return {
       title: '管理员',

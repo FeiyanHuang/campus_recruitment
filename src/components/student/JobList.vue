@@ -1,25 +1,15 @@
 <template>
   <div class="big-box" >
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">校园招聘</a>
+    <form class="col-md-4" @submit.prevent='find(search)'>
+      <div class="input-group">
+        <input type="text" class="form-control" v-model='search' placeholder="Search">
+        <div class="input-group-btn">
+          <button class="btn btn-default" type="submit">
+            <i class="glyphicon glyphicon-search"></i>
+          </button>
         </div>
-        <form class="nav navbar-nav navbar-form" @submit.prevent='find(search)'>
-          <div class="input-group">
-            <input type="text" class="form-control" v-model='search' placeholder="Search">
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="submit">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </div>
-          </div>
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-          <li  @click='logout'><a href="#"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
-        </ul>
       </div>
-    </nav>
+    </form>
     <div class="container main-box">
       <div class="panel panel-default panel-box" v-for="job in jobs">
         <div class="panel-heading">
@@ -48,4 +38,6 @@
     float: right
   .main-box
     margin-top: 80px
+  .panel-box
+    margin-top: 20px
 </style>

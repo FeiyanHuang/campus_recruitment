@@ -6,7 +6,7 @@ import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
 import { fetchViewApi } from '../../api/user'
 
 export default {
-  name: 'Login',
+  name: 'ViewDetails',
   data () {
     return {
       title: '管理员',

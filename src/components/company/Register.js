@@ -6,7 +6,7 @@ import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
 import { registerCompanyApi, fetchCompanyApi, updateCompanyApi } from '../../api/user'
 
 export default {
-  name: 'Login',
+  name: 'Register',
   data () {
     return {
       company: {
