@@ -90,7 +90,7 @@ const mutations = {
     state.admin = null
     state.company = null
     state.student = null
-    window.location.href = '/index'
+    window.location.href = '/homepage'
   }
 }
 

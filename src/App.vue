@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-inverse navbar-fixed-top" v-if="currentUser">
-      <div class="container-fluid">
+    <nav class="navbar navbar-inverse" v-if="currentUser">
+      <div class="container container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="#">校园招聘</a>
+          <router-link class="navbar-brand" :to="{ path: '/homepage' }">校园招聘</router-link>
         </div>
         <ul class="nav navbar-nav" v-if="admin">
           <li>
@@ -14,12 +14,13 @@
           </li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li @click='updateCompany(currentUser.id)' v-if="company"><a>修改'{{this.currentUser.company_name}}'信息</a></li>
+          <li><a @click='bench'>工作台</a></li>
+          <!-- <li @click='updateCompany(currentUser.id)' v-if="company"><a>修改'{{this.currentUser.company_name}}'信息</a></li> -->
           <li  @click='logout'><a href="#"><span class="glyphicon glyphicon-log-in"></span>Logout</a></li>
         </ul>
       </div>
     </nav>
-    <div class="container">
+    <div>
       <transition name="fade" mode="out-in">
         <router-view class="view"></router-view>
       </transition>
@@ -38,7 +39,7 @@ export default {
     ...mapGetters([
       'currentUser',
       'admin',
-      'studnt',
+      'student',
       'company'
     ])
   },
@@ -51,6 +52,15 @@ export default {
     },
     updateCompany (id) {
       this.$router.push('/company/register/' + id)
+    },
+    bench () {
+      if (this.admin){
+        this.$router.push('/admin/job/list')
+      } else if (this.company) {
+        this.$router.push('/company/job/list')
+      } else if (this.student) {
+        this.$router.push('/student/job/list')
+      }
     }
   }
 }
@@ -58,6 +68,9 @@ export default {
 
 <style lang="sass">
   @import "./assets/scss/app"
+  .navbar-inverse
+    background-color: #FE5A00
+    border: 0px solid #090909
   // .container
   //   margin-top: 80px
 </style>

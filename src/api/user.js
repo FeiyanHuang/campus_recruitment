@@ -4,6 +4,17 @@ import * as config from './config.js'
 
 Vue.use(VueResource)
 
+// 首页职位列表
+export function fetchHomepageJobsApi (cb) {
+  const baseUrl = config.rootUrl + `homepage/job_list.php`
+  return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+    cb(res.body)
+  }, (err) => {
+    console.log('fetchHomepageJobsApi err ' + JSON.stringify(err))
+    cb(null, err)
+  })
+}
+
 // 管理员登录
 export function loginAdminApi (admin, password, cb) {
   const baseUrl = config.rootUrl + `admin/admin_login.php?admin=${admin}&password=${password}`

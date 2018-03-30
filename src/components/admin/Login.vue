@@ -1,34 +1,21 @@
 <template>
-  <div class="big-box" >
-    <div class="container" >
+  <div>
+    <div class="col-md-6 col-md-offset-3 login-box" ref="center">
+      <div class="title">
+        {{title}}
+      </div>
       <!-- <form method="post" action="http://localhost:88/campus_recruitment/chklogin.php"> -->
-      <form @submit.prevent='login'>
-        <div class="col-md-6 col-md-offset-3 login-box">
-          <div class="title">
-            <span class="company">{{this.title}}</span>
-          </div>
-          <div class="col-md-10 col-md-offset-1 main-box">
-            <div class="user-box">
-              <label class="font">用户名</label>
-              <input class="form-control input-box" type="text" placeholder="" name="admin" value="" v-model="admin" required>
-            </div>
-            <div class="password-box">
-              <label class="font">密码</label>
-              <br>
-              <input class="form-control input-box" type="password" placeholder="" name="password" value="" v-model="password" required>
-            </div>
-            <div class="forget-box">
-              <popper trigger="hover" :options="{placement: 'top'}">
-                <div class="popper">
-                  {{ forgetPwd }}
-                </div>
-                <div class="" slot="reference">
-                  <span class="forget">忘记密码</span><i class="fa fa-question-circle-o forget-icon"></i>
-                </div>
-              </popper>
-            </div>
-            <button class="btn btn-block login-btn" type="submit" name="button">提交</button>
-          </div>
+      <form class="" action="index.html" @submit.prevent='login'>
+        <div class="col-md-10 col-md-offset-1 user">
+          <label for="">用户名</label>
+          <input type="text" class="form-control" v-model="admin">
+        </div>
+        <div class="col-md-10 col-md-offset-1 password">
+          <label for="">密码</label>
+          <input type="password" class="form-control" v-model="password">
+        </div>
+        <div class="col-md-10 col-md-offset-1">
+          <button type="submit" class="btn btn-block" name="button">登录</button>
         </div>
       </form>
     </div>
@@ -37,78 +24,33 @@
 <script src = './Login.js' scoped> </script>
 <style lang="sass" scoped>
   @import "../../assets/scss/app"
+  @import "../../assets/scss/app"
   .login-box
-    margin-top: 80px
-    border: 1px solid #d8dde6
-    height: 650px
-    background-color: #fff
-    margin-bottom: 60px
-    border-radius: 5px
-    box-shadow: 0px 0px 10px #d8dde6
-    padding-top: 80px
-    padding-bottom: 100px
+     border: 1px solid #00b95e
+     border-radius: 6px
+     box-shadow: 0px 0px 10px #82ddb0
+     padding-top: 10px
+     padding-bottom: 10px
   .title
     text-align: center
-  .company
-    font-size: 36px
-    color: #3385ff
-    font-family: '黑体'
-  // .main-box
-  //   margin-top: 50px
-  .font
+    font-size: 40px
+    color: #00b95e
+    font-family: '华文行楷'
+  form>div
+    margin-top: 20px
+    margin-bottom: 20px
+  form>div>label,form>div>button
     font-size: 16px
     font-weight: normal
-    color: #3385ff
     font-family: '黑体'
-  .input-box
-    height: 62px
-    border-radius: 2px
-  .login-btn
-    font-size: 18px
-    color: #eee
-    height: 62px
-    background-color: #3385ff
-    border-color: #d8dde6
-    border-radius: 5px
-    font-family: '黑体'
-  .login-btn:hover
-    color: #0070d2
-    background-color: #eee
-  .password-box, .user-box
-    margin-bottom: 60px
-  .big-box
-    background-color: #f4f6f9
-  .problem
-    display: inline-block
-  .problem-icon
-    color: rgba(71,113,248,0.8)
-    font-size: 16px
-    cursor: pointer
-  .forget
-    font-family: '黑体'
-    font-size: 12px
-    font-weight: normal
-    color: #3385ff
-    cursor: pointer
-  .forget-icon
-    font-size: 12px
-    color: #3385ff
-  .forget-box
-    display: inline-block
-    margin-bottom: 10px
-    float: right
-  .is-danger
-    border: 1px solid #f00
-  .font-danger
-    color: #f00
-
-  // 一种自适应的办法
-  // @media screen and (min-width: 1024px)
-  //   /*pc
-  //   .login-box
-  //     margin-top: 60px
-  // @media screen and (max-width: 1024px)
-  //   /*手机
-  //   .login-box
-  //     margin-top: 50%
+  form>div>input
+    border-radius: 4px !important
+  form>div>button
+    background-color: #00b95e
+    color: #fff!important
+    border-radius: 4px!important
+  form>div>button:hover
+    border-color: #00b95e!important
+    background-color: #fff
+    color: #000!important
 </style>

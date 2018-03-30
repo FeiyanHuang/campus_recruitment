@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Index from '../components/Index.vue'
+import Homepage from '../components/Homepage.vue'
 
 import AdminLogin from '../components/admin/Login.vue'
 import CompanyList from '../components/admin/CompanyList.vue'
@@ -24,7 +24,7 @@ export default new Router({
   scrollBehavior: () => ({ y: 0 }),
   routes: [
     // 首页index
-    { path: '/index', component: Index },
+    { path: '/homepage', component: Homepage },
     // 管理员
     { path: '/admin/login', component: AdminLogin },
     { path: '/admin/company/list', component: CompanyList },
@@ -40,6 +40,6 @@ export default new Router({
     { path: '/company/job/list', component: CompanyJobList },
     { path: '/company/addjob', component: CompanyAddJob },
     { path: '/company/addjob/:id', component: CompanyAddJob },
-    { path: '/', redirect: '/index' }
+    { path: '/', redirect: '/homepage' }
   ]
 })
