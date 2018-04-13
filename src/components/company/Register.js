@@ -2,7 +2,10 @@ import Vue from 'vue'
 import { mapGetters } from 'vuex'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
-import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
+import VeeValidate from 'vee-validate';
+
+Vue.use(VeeValidate);
+import arabic from 'vee-validate/dist/locale/zh_CN'
 import { registerCompanyApi, fetchCompanyApi, updateCompanyApi } from '../../api/user'
 
 export default {
@@ -18,7 +21,8 @@ export default {
         email: "",
         address: "",
         type: "",
-        content: ""
+        content: "",
+        locale: 'zh'
       },
       createMode: true
     }
@@ -53,12 +57,12 @@ export default {
         if (err) {
           Vue.swal({
             type: 'error',
-            text: '创建用户失败'
+            text: '更新用户失败'
           })
         } else {
           Vue.swal({
             type: 'success',
-            text: '创建用户成功'
+            text: '更新用户成功'
           })
           this.$router.push('/company/job/list')
         }
@@ -66,6 +70,14 @@ export default {
     }
   },
   created () {
+    this.$validator.localize('zh_CN', {
+      messages: arabic.messages,
+      attributes: {
+        email: '邮箱'
+      }
+    })
+    // start with english locale.
+    this.$validator.localize('zh_CN')
     const id = this.$route.params.id
     console.log(id)
     //  id = 0, means new user

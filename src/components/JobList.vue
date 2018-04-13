@@ -1,17 +1,5 @@
 <template>
   <div class="big-box" >
-    <div class="search">
-      <form class="col-md-4 col-md-offset-4" @submit.prevent='find(search)'>
-        <div class="input-group">
-          <input type="text" class="form-control" v-model='search' placeholder="Search">
-          <div class="input-group-btn">
-            <button class="btn btn-default" type="submit">
-              <i class="glyphicon glyphicon-search"></i>
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
     <div class="container main-box">
       <div class="col-md-8">
         <!-- 职位列表 -->
@@ -34,18 +22,18 @@
       </div>
       <!-- 广告 -->
       <div class="col-md-4">
-        <img src="../../assets/img/advertisement3.png" alt="">
+        <img src="../assets/img/advertisement3.png" alt="">
       </div>
     </div>
   </div>
 </template>
 <script src = './JobList.js' scoped> </script>
 <style lang="sass" scoped>
-  @import "../../assets/scss/app"
+  @import "../assets/scss/app"
   .search
     height: 300px
     text-align: center
-    background: url(../../assets/img/banner3.png) center
+    background: url(../assets/img/banner3.png) center
     margin-top: -20px
     padding-top: 120px
   .job

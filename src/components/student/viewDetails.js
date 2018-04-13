@@ -1,15 +1,16 @@
 import Vue from 'vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
 import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
-import { fetchViewApi } from '../../api/user'
+import { fetchViewApi,passJobApi, failJobApi } from '../../api/user'
 
 export default {
   name: 'ViewDetails',
   data () {
     return {
       title: '管理员',
+      check: '',
       job: {
         'j_id': "1",
         'job_name': "前端开发",
@@ -35,7 +36,10 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'admin',
+      'student',
+      'company'
     ]),
     loginMsg () {
       return LOGIN_ACCOUNT
@@ -45,28 +49,64 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'loginAdmin',
-      'logoutUser'
-    ]),
-    logout () {
-      this.logoutUser()
+    pass (id) {
+      passJobApi(id, (res, err) => {
+        // this.user = res
+        if (err) {
+          // alert('无法获取用户')
+          Vue.swal({
+            type: 'error',
+            text: '审核失败'
+          })
+        } else {
+          Vue.swal({
+            type: 'success',
+            text: '审核通过'
+          })
+        }
+        this.$router.push('/admin/job/list')
+      })
+    },
+    failed (id) {
+      failJobApi(id, (res, err) => {
+        if (err) {
+          Vue.swal({
+            type: 'error',
+            text: '审核失败'
+          })
+        } else {
+          Vue.swal({
+            type: 'success',
+            text: '审核不通过'
+          })
+        }
+        this.$router.push('/admin/job/list')
+      })
     }
   },
   created () {
-    const id = this.$route.params.id
-    fetchViewApi(id,(res, err) => {
-      if (err) {
-        // alert('获取用户列表失败')
-        Vue.swal({
-          type: 'error',
-          text: '获取用户列表失败'
-        })
-        this.loading = false
-      } else {
-        this.job = res
-        this.loading = false
-      }
-    })
+    if(this.currentUser){
+      const id = this.$route.params.id
+      const full = this.$route.fullPath
+      this.check = (full=='/admin/job/check/'+id)?true:false
+      console.log(this.check)
+      fetchViewApi(id,(res, err) => {
+        if (err) {
+          // alert('获取用户列表失败')
+          Vue.swal({
+            type: 'error',
+            text: '获取用户列表失败'
+          })
+        } else {
+          this.job = res
+        }
+      })
+    }else{
+      Vue.swal({
+        type: 'error',
+        text: '请先登录'
+      })
+      this.$router.push('/homepage')
+    }
   }
 }

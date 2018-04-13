@@ -12,10 +12,21 @@
         </div>
         <div class="col-md-10 col-md-offset-1 password">
           <label for="">密码</label>
+          <div class="problem">
+            <popper trigger="hover" :options="{placement: 'top'}">
+              <div class="popper">
+                忘记密码，联系管理员QQ：515978951
+              </div>
+              <div class="" slot="reference">
+                <i class="fa fa-question-circle-o problem-icon"></i>
+              </div>
+            </popper>
+          </div>
           <input type="password" class="form-control" v-model="password">
         </div>
         <div class="col-md-10 col-md-offset-1">
           <button type="submit" class="btn btn-block" name="button">登录</button>
+          <span class="center"><router-link :to="{ path: '/company/register/0' }">注册</router-link></span>
         </div>
       </form>
     </div>
@@ -53,4 +64,8 @@
     border-color: #FE5A00!important
     background-color: #fff
     color: #FE5A00!important
+  .center
+    text-align: center
+  .problem
+    display: inline-block
 </style>

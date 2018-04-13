@@ -15,6 +15,17 @@ export function fetchHomepageJobsApi (cb) {
   })
 }
 
+//首页查找结果
+export function fetchSearchJobsApi (jobName, companyName, page, cb) {
+  const baseUrl = config.rootUrl + `homepage/job_search.php?jobName=${jobName}&companyName=${companyName}&page=${page}`
+  return Vue.http.get(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+    cb(res.body)
+  }, (err) => {
+    console.log('getUsersApi err ' + JSON.stringify(err))
+    cb(null, err)
+  })
+}
+
 // 管理员登录
 export function loginAdminApi (admin, password, cb) {
   const baseUrl = config.rootUrl + `admin/admin_login.php?admin=${admin}&password=${password}`
@@ -205,7 +216,7 @@ export function fetchCompanyJobsApi (company_name,page,cb) {
 
 //  新增职位
 export function addCompanyJobApi (job, cb) {
-  const baseUrl = config.rootUrl + `company/job_add.php?job_name=${job.job_name}&price=${job.price}&content=${job.content}&persons=${job.persons}&c_name=${job.c_name}`
+  const baseUrl = config.rootUrl + `company/job_add.php?job_name=${job.job_name}&price=${job.price}&content=${job.content}&persons=${job.persons}&c_name=${job.c_name}&j_address=${job.j_address}&education=${job.education}`
   return Vue.http.post(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true},job).then((res) => {
     cb(res.body)
     console.log('loginStudentApi suc ' + JSON.stringify(res))
@@ -229,20 +240,20 @@ export function delCompanyJobApi (id, cb) {
 }
 
 // 获取修改职位信息
-export function fetchCompanyJobApi (id, cb) {
-  const baseUrl = config.rootUrl + `company/job_details.php?id=${id}`
-  return Vue.http.post(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
-    cb(res.body)
-    console.log('loginStudentApi suc ' + JSON.stringify(res))
-  }, (err) => {
-    console.log('loginStudentApi err ' + JSON.stringify(err))
-    cb(null, err)
-  })
-}
+// export function fetchCompanyJobApi (id, cb) {
+//   const baseUrl = config.rootUrl + `company/job_details.php?id=${id}`
+//   return Vue.http.post(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true}).then((res) => {
+//     cb(res.body)
+//     console.log('loginStudentApi suc ' + JSON.stringify(res))
+//   }, (err) => {
+//     console.log('loginStudentApi err ' + JSON.stringify(err))
+//     cb(null, err)
+//   })
+// }
 
 // 修改职位信息
 export function updateCompanyJobApi (job, cb) {
-  const baseUrl = config.rootUrl + `company/job_update.php?id=${job.id}&price=${job.price}&content=${job.content}&persons=${job.persons}`
+  const baseUrl = config.rootUrl + `company/job_update.php?id=${job.id}&price=${job.price}&content=${job.content}&persons=${job.persons}&j_address=${job.j_address}&education=${job.education}`
   return Vue.http.post(baseUrl,{headers:'X-Requested-With:XMLHttpRequest'},{emulateJSON:true},job).then((res) => {
     cb(res.body)
     console.log('loginStudentApi suc ' + JSON.stringify(res))

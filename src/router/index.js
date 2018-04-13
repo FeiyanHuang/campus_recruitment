@@ -2,9 +2,11 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import Homepage from '../components/Homepage.vue'
+import JobList from '../components/JobList.vue'
 
 import AdminLogin from '../components/admin/Login.vue'
 import CompanyList from '../components/admin/CompanyList.vue'
+import CompanyDetails from '../components/admin/CompanyDetails.vue'
 import AdminJobList from '../components/admin/JobList.vue'
 import AdminJobCheck from '../components/admin/JobCheck.vue'
 
@@ -25,11 +27,13 @@ export default new Router({
   routes: [
     // 首页index
     { path: '/homepage', component: Homepage },
+    { path: '/job/list/:job_name/:c_name', component: JobList },
     // 管理员
     { path: '/admin/login', component: AdminLogin },
     { path: '/admin/company/list', component: CompanyList },
+    { path: '/admin/company/job/:company', component: CompanyDetails },
     { path: '/admin/job/list', component: AdminJobList },
-    { path: '/admin/job/check/:id', component: AdminJobCheck },
+    { path: '/admin/job/check/:id', component: StudentViewDetails },
     // 学生
     { path: '/student/login', component: StudentLogin },
     { path: '/student/job/list', component: StudentJobList },

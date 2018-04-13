@@ -1,8 +1,7 @@
 import Vue from 'vue'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
 import Popper from 'vue-popperjs'
 import 'vue-popperjs/dist/css/vue-popper.css'
-import { LOGIN_ACCOUNT, FORGET_PWD } from '../../assets/tooltips'
 import { fetchCompanyJobsApi, delCompanyJobApi } from '../../api/user'
 import {Pagination} from 'vue-pagination-2'
 
@@ -11,8 +10,8 @@ export default {
   name: 'JobList',
   data () {
     return {
-      title: '管理员',
-      admin: null,
+      // title: '管理员',
+      // admin: null,
       password: null,
       jobs: null,
       search: null,
@@ -26,7 +25,10 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'admin',
+      'student',
+      'company'
     ]),
     loginMsg () {
       return LOGIN_ACCOUNT
@@ -36,16 +38,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions([
-      'loginAdmin',
-      'logoutUser'
-    ]),
-    logout () {
-      this.logoutUser()
+    updateCompany (id) {
+      this.$router.push('/company/register/' + id)
     },
-    // updateCompany (id) {
-    //   this.$router.push('/company/register/' + id)
-    // },
     update (id) {
       this.$router.push('/company/addjob/' + id)
     },
@@ -84,18 +79,26 @@ export default {
     }
   },
   created () {
-    fetchCompanyJobsApi(this.currentUser.company_name,this.page,(res, err) => {
-      if (err) {
-        // alert('获取用户列表失败')
-        Vue.swal({
-          type: 'error',
-          text: '获取用户列表失败'
-        })
-        this.loading = false
-      } else {
-        this.jobs = res.jobs
-        this.total_records = parseInt(res.count)
-      }
-    })
+    if(this.currentUser && this.company){
+      fetchCompanyJobsApi(this.currentUser.company_name,this.page,(res, err) => {
+        if (err) {
+          // alert('获取用户列表失败')
+          Vue.swal({
+            type: 'error',
+            text: '获取用户列表失败'
+          })
+          this.loading = false
+        } else {
+          this.jobs = res.jobs
+          this.total_records = parseInt(res.count)
+        }
+      })
+    }else{
+      Vue.swal({
+        type: 'error',
+        text: '权限不够请先登录'
+      })
+      this.$router.push('/company/login')
+    }
   }
 }

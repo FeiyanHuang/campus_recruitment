@@ -20,6 +20,22 @@
         </ul>
       </div>
     </nav>
+    <!-- 导航 -->
+    <nav v-if="!currentUser" class="navbar navbar-inverse">
+      <div class="container container-fluid">
+        <div class="navbar-header">
+          <router-link class="navbar-brand" :to="{ path: '/homepage' }">校园招聘</router-link>
+        </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li ><router-link :to="{ path: '/company/login' }">企业</router-link></li>
+          <li ><router-link :to="{ path: '/student/login' }">学生</router-link></li>
+
+          <!-- <span @click='admin_login'>admin</span> -->
+          <!-- <span @click='company_login'>company</span>
+          <span @click='student_login'>student</span> -->
+        </ul>
+      </div>
+    </nav>
     <div>
       <transition name="fade" mode="out-in">
         <router-view class="view"></router-view>
@@ -49,9 +65,6 @@ export default {
   methods: {
     logout () {
       this.$store.commit('LOGOUT')
-    },
-    updateCompany (id) {
-      this.$router.push('/company/register/' + id)
     },
     bench () {
       if (this.admin){

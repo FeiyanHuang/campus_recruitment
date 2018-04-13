@@ -51,6 +51,10 @@ export default {
           })
           // this.loading = false
         } else {
+          Vue.swal({
+            type: 'success',
+            text: '查找职位成功'
+          })
           this.jobs = res.jobs
           this.total_records = parseInt(res.count)
           // this.loading = false

@@ -1,8 +1,7 @@
 <template>
   <div class="big-box" >
     <div class="container main-box">
-      <router-link :to="{ path: '/company/addjob/0' }">新建职位</router-link>
-      <li @click='updateCompany(currentUser.id)'><a>修改{{this.currentUser.company_name}}信息</a></li>
+      <router-link :to="{ path: '/admin/company/list' }">返回</router-link>
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -16,8 +15,6 @@
             <th>工作地址</th>
             <th>发布时间</th>
             <th>状态</th>
-            <th>编辑</th>
-            <th>删除</th>
           </tr>
         </thead>
         <tbody>
@@ -36,12 +33,6 @@
               <span v-else-if="job.status=='0'">未通过</span>
               <span v-else>等待审核</span>
             </td>
-            <td>
-              <button type="button" name="button" @click='update(job.id)'>查看/编辑</button>
-            </td>
-            <td>
-              <button type="button" name="button" @click='del(job.id)'>删除</button>
-            </td>
           </tr>
         </tbody>
       </table>
@@ -52,11 +43,9 @@
     </div>
   </div>
 </template>
-<script src = './JobList.js' scoped> </script>
+<script src = './CompanyDetails.js' scoped> </script>
 <style lang="sass" scoped>
   @import "../../assets/scss/app"
-  .main-box
-    margin-top: 80px
   table>thead>tr>th
     text-align: center
     font-family: '黑体'
@@ -65,7 +54,4 @@
     vertical-align: middle!important
     text-align: center
     font-family: '黑体'
-  .main-box>li
-    float: right
-    list-style: none
 </style>

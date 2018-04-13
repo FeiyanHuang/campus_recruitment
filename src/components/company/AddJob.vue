@@ -21,6 +21,16 @@
               <input class="form-control input-box" type="text" name="" value="" v-model="job.persons" placeholder="必填">
             </div>
             <div class="col-md-6 item-box">
+              <label class="font">学历</label>
+              <br>
+              <input placeholder="必填" v-model="job.education" class="form-control input-box" name="phone" type="text" >
+            </div>
+            <div class="col-md-6 item-box">
+              <label class="font">工作地址</label>
+              <br>
+              <input placeholder="必填" v-model="job.j_address" class="form-control input-box" name="phone" type="text" >
+            </div>
+            <div class="col-md-6 item-box">
               <label class="font">要求</label>
               <br>
               <input placeholder="必填" v-model="job.content" class="form-control input-box" name="phone" type="text" >

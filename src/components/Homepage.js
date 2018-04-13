@@ -16,7 +16,9 @@ export default {
           persons: null,
           content: null
         }
-      ]
+      ],
+      job_name: null,
+      c_name: null
     }
   },
   components: {
@@ -30,15 +32,12 @@ export default {
     ])
   },
   methods: {
-    // admin_login () {
-    //   this.$router.push('/admin/login')
-    // },
-    // company_login () {
-    //   this.$router.push('/company/login')
-    // },
-    // student_login () {
-    //   this.$router.push('/student/login')
-    // }
+    view (id) {
+      this.$router.push('/student/view/' + id)
+    },
+    find (job_name,c_name) {
+      this.$router.push('/job/list/' + job_name + '/' + c_name)
+    }
   },
   created () {
     fetchHomepageJobsApi((res, err) => {

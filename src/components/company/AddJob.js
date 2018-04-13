@@ -15,6 +15,8 @@ export default {
         price: "",
         content: "",
         persons: "",
+        education: "",
+        j_address: "",
         c_name: ""
       },
       createMode: true
@@ -25,7 +27,10 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'currentUser'
+      'currentUser',
+      'admin',
+      'student',
+      'company'
     ])
   },
   methods: {
@@ -42,7 +47,7 @@ export default {
             text: '创建职位成功'
           })
         }
-        window.location.href = '/company/job/list'
+        this.$router.push('/company/job/list')
       })
     },
     update () {
@@ -59,29 +64,34 @@ export default {
           })
         }
         this.$router.push('/company/job/list')
-        // window.location.href = '/company/job/list'
       })
     }
   },
   created () {
-    const id = this.$route.params.id
-    console.log(id)
-    //  id = 0, means new user
-    if (parseInt(id) !== 0) {
-      this.createMode = false
-      fetchCompanyJobApi(id, (res, err) => {
-        // this.user = res
-        if (err) {
-          // alert('无法获取用户')
-          Vue.swal({
-            type: 'error',
-            text: '无法获取用户'
-          })
-        } else {
-          this.job = res
-        }
+    if(this.currentUser && this.company){
+      const id = this.$route.params.id
+      console.log(id)
+      if (parseInt(id) !== 0) {
+        this.createMode = false
+        fetchCompanyJobApi(id, (res, err) => {
+          if (err) {
+            Vue.swal({
+              type: 'error',
+              text: '无法获取用户'
+            })
+          } else {
+            this.job = res
+          }
+        })
+      }
+      this.job.c_name=this.currentUser.company_name
+    }else{
+      Vue.swal({
+        type: 'error',
+        text: '权限不够请先登录'
       })
+      this.$router.push('/company/login')
     }
-    this.job.c_name=this.currentUser.company_name
+
   }
 }

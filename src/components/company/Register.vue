@@ -18,32 +18,45 @@
             <div class="col-md-6 item-box">
               <label class="font">负责人</label>
               <br>
-              <input class="form-control input-box" type="text" name="" value="" v-model="company.boss" placeholder="可选：注册单位">
+              <input class="form-control input-box" type="text" name="" value="" v-model="company.boss" placeholder="必填：企业法人">
             </div>
+            <!-- <div class="col-md-6 item-box">
+              <label class="font">手机</label>
+              <br>
+              <input placeholder="必选：国内手机" v-model="company.tel" class="form-control input-box" name="phone" type="text" >
+            </div> -->
+            <!-- <div class="col-md-6 item-box">
+              <label class="font">邮件</label>
+              <br>
+              <input class="form-control input-box" type="email" name="" value="" v-model="company.email" required placeholder="必填：用于接收简历">
+            </div> -->
             <div class="col-md-6 item-box">
               <label class="font">手机</label>
               <br>
-              <input placeholder="可选：国内手机" v-model="company.tel" class="form-control input-box" name="phone" type="text" >
+              <input placeholder="可选：国内手机" v-model="company.tel" v-validate="{ rules: { regex: /^(13\d|14[57]|15[012356789]|17[03678]|18\d)\d{8}$/}}" :class="{'input': true,'form-control':true, 'input-box':true, 'is-danger': errors.has('phone') }" name="phone" type="text" >
+              <br>
+              <span v-show = "errors.has('phone')" :class="{ 'font-danger': errors.has('phone') }">  {{errors.first('phone')}} </span>
             </div>
             <div class="col-md-6 item-box">
               <label class="font">邮件</label>
+              <input v-validate="'required|email'" :class="{'input': true,'form-control':true, 'input-box':true, 'is-danger': errors.has('email') }" name="email" type="text" placeholder="必填：用于接收简历" v-model="company.email" >
               <br>
-              <input class="form-control input-box" type="email" name="" value="" v-model="company.email" required placeholder="必填：10000">
+              <span v-show = "errors.has('email')" :class="{ 'font-danger': errors.has('email') }">  {{errors.first('email')}} </span>
             </div>
             <div class="col-md-6 item-box">
               <label class="font">地址</label>
               <br>
-              <input class="form-control input-box"  type="text" name="" value="" v-model="company.address" required>
+              <input class="form-control input-box"  type="text" name="" value="" v-model="company.address" required placeholder="必填：具体地址">
             </div>
             <div class="col-md-6 item-box">
               <label class="font">公司类型</label>
               <br>
-              <input class="form-control input-box"  type="text" name="" value="" v-model="company.type" required>
+              <input class="form-control input-box"  type="text" name="" value="" v-model="company.type" required placeholder="必填：公司类型">
             </div>
             <div class="col-md-6 item-box">
               <label class="font">公司简介</label>
               <br>
-              <input class="form-control input-box"  type="text" name="" value="" v-model="company.content" required>
+              <input class="form-control input-box"  type="text" name="" value="" v-model="company.content" required placeholder="必填：公司概况">
             </div>
             <div class="col-md-12 btn-box">
               <div class="">

@@ -1,21 +1,5 @@
 <template>
   <div class="big-box" >
-    <!-- 导航 -->
-    <nav v-if="!currentUser" class="navbar navbar-inverse">
-      <div class="container container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">校园招聘</a>
-        </div>
-        <ul class="nav navbar-nav navbar-right">
-          <li ><router-link :to="{ path: '/company/login' }">企业</router-link></li>
-          <li ><router-link :to="{ path: '/student/login' }">学生</router-link></li>
-
-          <!-- <span @click='admin_login'>admin</span> -->
-          <!-- <span @click='company_login'>company</span>
-          <span @click='student_login'>student</span> -->
-        </ul>
-      </div>
-    </nav>
     <!-- banner -->
     <div class="banner">
     </div>
@@ -27,13 +11,13 @@
           <p>搜寻你想要的工作</p>
         </div>
         <div class="col-md-3">
-          <input class="form-control" type="text" name="" value="" placeholder="公司">
+          <input class="form-control" type="text" name="" value="" placeholder="公司" v-model="c_name">
         </div>
         <div class="col-md-3">
-          <input class="form-control" type="text" name="" value="" placeholder="职位">
+          <input class="form-control" type="text" name="" value="" placeholder="职位" v-model="job_name">
         </div>
         <div class="col-md-3">
-          <button class="btn" type="button" name="button">找工作</button>
+          <button class="btn" type="button" name="button" @click="find(job_name,c_name)">找工作</button>
         </div>
       </div>
       <!--  adv盒子  -->
@@ -67,19 +51,33 @@
           </div>
         </div>
         <!-- 职位 -->
-        <div class="col-md-6 job">
-          <p>POST A JOB OFFER</p>
-          <p>{{jobs}}</p>
+        <div class="col-md-9 job">
+          <p>最新职位</p>
+          <!-- 职位列表 -->
+          <div class="job_item" v-for="(job,index) in jobs" >
+            <h4>{{job.job_name}}</h4>
+            <div class="">
+              <span class="">{{job.price}}元/月</span>
+              <span class="middle">{{job.education}}/{{job.j_address}}</span>
+              <span class="right">{{job.persons}}人</span>
+              <br>
+              <span class="">{{job.date_time}} 发布</span>
+              <span class="middle2" >{{job.c_name}}</span>
+              <span class="right detail" @click="view(job.id)">查看详情>></span>
+            </div>
+          </div>
+          <router-link :to="{ path: '/job/list' }"><span class="right view_more">查看更多</span></router-link>
         </div>
+
         <!-- adv2 -->
-        <div class="col-md-3 adv2">
+        <!-- <div class="col-md-3 adv2">
           <div class="col-md-10 col-md-offset-1 CATEGORY">
             <p class="">CATEGORY</p>
           </div>
           <div class="col-md-10 col-md-offset-1 WORKINGTIME">
             <p class="">CATEGORY</p>
           </div>
-        </div>
+        </div> -->
       </div>
       <!-- 关于我们 -->
       <div class="col-md-12 about_me">
@@ -131,12 +129,12 @@
       </div>
       <!--blue bg-->
       <div class="blue_background">
-
+        <h2>本网站立志为学生提供安全可靠的岗位</h2>
       </div>
       <!-- map -->
-      <div class="">
+      <!-- <div class="">
         <iframe src="http://www.google.cn/maps/embed?pb=!1m18!1m12!1m3!1d3461.6504402499063!2d121.56091831497861!3d29.8166416362531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x344d7c67389928e7%3A0xe27bc73ae95e5540!2z5rWZ5rGf5LiH6YeM5a2m6Zmi6ZKx5rmW5qCh5Yy6!5e0!3m2!1szh-CN!2scn!4v1522397206338" width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -199,6 +197,10 @@
     float: right
   .job
     margin-top: 20px
+  .job>p
+    font-size: 36px
+    margin-bottom: 40px
+    color: #FE5A00
   .about_me
     background-color: #efefef
     padding-bottom: 40px
@@ -239,6 +241,40 @@
     text-align: center
   .blue_background
     margin-top: 20px
-    height: 400px
+    height: 380px
     background: url(../assets/img/blue_background.png) center top
+    text-align: center
+  .blue_background>h2
+    line-height: 360px
+    color: #FE5A00
+    opacity: 0.8
+  .job_item
+    border: 1px solid #FE5A00
+    padding: 20px 30px 20px 30px
+    margin-bottom: 60px
+  .job_item>h4
+    color: #257FD2
+    display: inline-block
+  .job_item>div
+    height: 60px
+    padding-top: 10px
+    line-height: 40px
+    margin-bottom: 20px
+  .job_item>div>span
+    font-size: 16px
+  .right
+    float: right
+  .middle
+    position: relative
+    left: 35%
+  .middle2
+    position: relative
+    left: 28%
+  .detail
+    cursor: pointer
+  .detail:hover
+    color: #666
+  .view_more:hover
+    color: #FE5A00
+    cursor: pointer
 </style>
